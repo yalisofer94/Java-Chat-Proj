@@ -20,7 +20,7 @@ public class ServerApplication
         ClientDescriptor client = null;
         ConnectionProxy connection = null;
 
-        While(true)
+        while(true)
         {
             try
             {

@@ -8,7 +8,7 @@ public class MessageBoard implements StringConsumer, StringProducer
     private List<StringConsumer> proxies;
 
     @Override
-    public void consume(StringProducer str) {
+    public void consume(String str) {
         for(int i =0; i < proxies.size(); i++){
             proxies.get(i).consume(str);
         }

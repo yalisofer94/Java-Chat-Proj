@@ -3,8 +3,8 @@ package Chat;
 public class ClientGUI implements StringConsumer, StringProducer
 {
     @Override
-    public void consume(StringProducer str) {
-
+    public void consume(String str) {
+    
     }
 
     @Override
@@ -14,7 +14,7 @@ public class ClientGUI implements StringConsumer, StringProducer
 
     @Override
     public void removeConsumer(StringConsumer sc) {
-        
+
     }
 
     //…
