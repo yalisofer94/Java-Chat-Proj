@@ -1,11 +1,15 @@
 package Chat;
 
-
+import java.util.ArrayList;
 import java.util.List;
 
 public class MessageBoard implements StringConsumer, StringProducer
 {
     private List<StringConsumer> proxies;
+
+    public MessageBoard() {
+        this.proxies = new ArrayList<>();
+    }
 
     @Override
     public void consume(String str) {
@@ -23,6 +27,4 @@ public class MessageBoard implements StringConsumer, StringProducer
     public void addConsumer(StringConsumer sc) {
         proxies.add(sc);
     }
-
-    //…
 }

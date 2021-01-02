@@ -12,49 +12,43 @@ public class ConnectionProxy extends Thread implements StringConsumer, StringPro
     private DataInputStream dis = null;
     private DataOutputStream dos = null;
     private Socket socket = null;
-    List<StringConsumer> clients;
+    private StringConsumer client;
 
     public ConnectionProxy(Socket socket) {
         this.socket = socket;
         try {
-            clients = new ArrayList<>();
             is = socket.getInputStream();
             os = socket.getOutputStream();
             dis = new DataInputStream(is);
             dos = new DataOutputStream(os);
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            if(socket!=null) {
-                try {
-                    socket.close();
-                } catch(IOException e) {}
-            }
-            if(dis!=null) {
-                try {
-                    dis.close();
-                } catch(IOException e) {}
-            }
-            if(dos!=null) {
-                try {
-                    dos.close();
-                } catch(IOException e) {}
-            }
+//        } finally {
+//            if(this.socket!=null) {
+//                try {
+//                    this.socket.close();
+//                } catch(IOException e) {}
+//            }
+//            if(dis!=null) {
+//                try {
+//                    dis.close();
+//                } catch(IOException e) {}
+//            }
+//            if(dos!=null) {
+//                try {
+//                    dos.close();
+//                } catch(IOException e) {}
+//            }
         }
     }
 
     @Override
     public void run() {
-        while(true){
+        String recieved = "";
+        while(!socket.isClosed()){
             try {
-                String recieved = "";
                 recieved = dis.readUTF();
-                if(recieved != ""){
-                    for (int i = 0 ; i < clients.size(); i++){
-                        clients.get(i).consume(recieved);
-                    }
-                    recieved = "";
-                }
+                client.consume(recieved);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -66,17 +60,16 @@ public class ConnectionProxy extends Thread implements StringConsumer, StringPro
         try {
             dos.writeUTF(str);
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
     @Override
     public void addConsumer(StringConsumer sc) {
-        clients.add(sc);
+        client = sc;
     }
 
     @Override
     public void removeConsumer(StringConsumer sc) {
-        clients.remove(sc);
+        client = null;
     }
 }

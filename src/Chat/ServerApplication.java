@@ -5,7 +5,7 @@ import java.io.*;
 
 public class ServerApplication
 {
-    public static void main(StringProducer args[])
+    public static void main(String args[])
     {
         ServerSocket server = null;
         MessageBoard mb = new MessageBoard();
@@ -15,6 +15,7 @@ public class ServerApplication
         }
         catch(IOException e)
         {
+            e.printStackTrace();
         }
         Socket socket = null;
         ClientDescriptor client = null;
@@ -34,6 +35,7 @@ public class ServerApplication
             }
             catch(IOException e)
             {
+                e.printStackTrace();
             }
         }
     }
