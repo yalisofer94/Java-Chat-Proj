@@ -71,5 +71,6 @@ public class ConnectionProxy extends Thread implements StringConsumer, StringPro
     @Override
     public void removeConsumer(StringConsumer sc) {
         client = null;
+
     }
 }
