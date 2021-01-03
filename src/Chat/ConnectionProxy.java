@@ -23,22 +23,6 @@ public class ConnectionProxy extends Thread implements StringConsumer, StringPro
             dos = new DataOutputStream(os);
         } catch (IOException e) {
             e.printStackTrace();
-//        } finally {
-//            if(this.socket!=null) {
-//                try {
-//                    this.socket.close();
-//                } catch(IOException e) {}
-//            }
-//            if(dis!=null) {
-//                try {
-//                    dis.close();
-//                } catch(IOException e) {}
-//            }
-//            if(dos!=null) {
-//                try {
-//                    dos.close();
-//                } catch(IOException e) {}
-//            }
         }
     }
 
@@ -49,10 +33,14 @@ public class ConnectionProxy extends Thread implements StringConsumer, StringPro
             try {
                 recieved = dis.readUTF();
                 client.consume(recieved);
+                if( recieved.equals("Leaving meeting")){
+                    this.socket.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+        this.removeConsumer(client);
     }
 
     @Override

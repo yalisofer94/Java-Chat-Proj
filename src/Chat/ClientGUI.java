@@ -121,6 +121,7 @@ import java.util.SplittableRandom;
                  public void windowClosing(WindowEvent e) {
                      super.windowClosing(e);
                      try {
+                         proxy.consume("Leaving meeting");
                          socket.close();
                      } catch (IOException ioException) {
                          ioException.printStackTrace();

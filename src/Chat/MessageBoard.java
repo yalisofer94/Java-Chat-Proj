@@ -1,5 +1,6 @@
 package Chat;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,7 @@ public class MessageBoard implements StringConsumer, StringProducer
     @Override
     public void consume(String str) {
         for(int i =0; i < proxies.size(); i++){
-            proxies.get(i).consume(str);
+                proxies.get(i).consume(str);
         }
     }
 
